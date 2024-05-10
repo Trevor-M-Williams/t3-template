@@ -1,4 +1,4 @@
-import { addProducts, uploadImages } from "@/actions/seed";
+// import { addProducts, uploadImages } from "@/actions/seed";
 import { addUserProduct, getUserProducts } from "@/actions/products";
 import { getUserData } from "@/actions/users";
 import { H3 } from "@/components/headings";
@@ -7,39 +7,39 @@ import { Button } from "@/components/ui/button";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
-function AdminButtons() {
-  return (
-    <div className="mb-6 flex gap-2">
-      <form
-        action={async () => {
-          "use server";
-          await addProducts();
-        }}
-      >
-        <Button>Add Products</Button>
-      </form>
+// function AdminButtons() {
+//   return (
+//     <div className="mb-6 flex gap-2">
+//       <form
+//         action={async () => {
+//           "use server";
+//           await addProducts();
+//         }}
+//       >
+//         <Button>Add Products</Button>
+//       </form>
 
-      <form
-        action={async () => {
-          "use server";
-          await uploadImages();
-        }}
-      >
-        <Button>Upload Images</Button>
-      </form>
+//       <form
+//         action={async () => {
+//           "use server";
+//           await uploadImages();
+//         }}
+//       >
+//         <Button>Upload Images</Button>
+//       </form>
 
-      <form
-        action={async () => {
-          "use server";
-          addUserProduct("prod_Q4NUPKqIdztpxT");
-          revalidatePath("/library");
-        }}
-      >
-        <Button>Add Product To User</Button>
-      </form>
-    </div>
-  );
-}
+//       <form
+//         action={async () => {
+//           "use server";
+//           addUserProduct("prod_Q4NUPKqIdztpxT");
+//           revalidatePath("/library");
+//         }}
+//       >
+//         <Button>Add Product To User</Button>
+//       </form>
+//     </div>
+//   );
+// }
 
 export default async function LibraryPage() {
   await getUserData();
