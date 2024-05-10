@@ -47,7 +47,7 @@ export default async function LibraryPage() {
 
   return (
     <div className="flex flex-col">
-      <AdminButtons />
+      {/* <AdminButtons /> */}
       <ImageGrid>
         {products.map((product) => (
           <Link
