@@ -19,7 +19,7 @@ export default async function CategoryPage({
   const { userId } = auth();
 
   if (userId) {
-    buttonUrl = await getStripeUrl(category);
+    buttonUrl = await getStripeUrl(category.replaceAll("-", " "));
   } else {
     buttonUrl = "/sign-in";
   }
