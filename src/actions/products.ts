@@ -46,7 +46,7 @@ export async function getAllProducts() {
     }),
   );
 
-  return data;
+  return data.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export async function getUserProducts() {
@@ -87,7 +87,7 @@ export async function getUserProducts() {
     }),
   );
 
-  return data.filter(isNotNull);
+  return data.filter(isNotNull).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export async function getStripeUrl(category: string) {

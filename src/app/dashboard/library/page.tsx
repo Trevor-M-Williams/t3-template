@@ -5,6 +5,8 @@ import { ImageGrid } from "@/components/image-grid";
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default async function LibraryPage() {
   await getUserData();
   const products = await getUserProducts();
