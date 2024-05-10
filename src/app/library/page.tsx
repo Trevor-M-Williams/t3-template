@@ -17,9 +17,7 @@ export default async function LibraryPage() {
         {products.map((product) => (
           <Link
             key={product.id}
-            href={
-              `/dashboard/library/${product.name.replaceAll(" ", "-")}` || ""
-            }
+            href={`/library/${product.name.replaceAll(" ", "-")}` || ""}
             className="relative flex w-full flex-col gap-2"
           >
             <Image

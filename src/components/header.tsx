@@ -25,7 +25,7 @@ export function Header() {
         </SignedOut>
         <SignedIn>
           <div className="flex items-center gap-2">
-            <Link href="/dashboard/library">Library</Link>
+            <Link href="/library">Library</Link>
             <UserButton />
           </div>
         </SignedIn>
