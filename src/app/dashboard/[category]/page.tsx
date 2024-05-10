@@ -18,9 +18,9 @@ export default async function CategoryPage({
   let buttonUrl, buttonText;
 
   const { userId } = auth();
-  const userProducts = await getUserProducts();
 
   if (userId) {
+    const userProducts = await getUserProducts();
     buttonUrl = await getStripeUrl(category.replaceAll("-", " "));
     buttonText = "Buy";
 

@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 
 async function getUserByEmail(email: string) {
   const user = await db.query.users.findFirst({
-    where: (user) => eq(user.email, email),
+    where: (user) => eq(user.email, email.toLowerCase()),
   });
 
   if (!user) {
