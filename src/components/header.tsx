@@ -3,13 +3,11 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import Breadcrumbs from "./breadcrumbs";
 
 export function Header() {
-  const pathname = usePathname();
   return (
-    <header className="px-8 py-4">
+    <header className="p-8 pb-4">
       <div className="flex justify-between">
         <Link href="/" className="text-2xl font-bold">
           <Image
@@ -33,9 +31,6 @@ export function Header() {
         </SignedIn>
       </div>
 
-      {/* <div className="mt-8 text-2xl capitalize">
-        {pathname.split("/").pop() || "Home"}
-      </div> */}
       <Breadcrumbs />
     </header>
   );
