@@ -1,3 +1,5 @@
+import { addUserProductFromStripe } from "@/actions/products";
+import { getUserByEmail } from "@/actions/users";
 import Cors from "micro-cors";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
@@ -25,7 +27,7 @@ export async function POST(req: Request) {
     const event = stripe.webhooks.constructEvent(body, signature, secret);
 
     if (event.type === "checkout.session.completed") {
-      //   const email = event.data.object.customer_details.email;
+      const email = event.data.object.customer_details.email;
 
       const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
         event.data.object.id,
@@ -34,7 +36,6 @@ export async function POST(req: Request) {
         },
       );
       const lineItems = sessionWithLineItems.line_items;
-      console.log(lineItems.data[0]);
       const priceID = lineItems.data[0].price.id;
 
       if (!priceID) {
@@ -44,9 +45,9 @@ export async function POST(req: Request) {
         });
       }
 
-      // get user id from email
-      // add row to user_products table
-      // revalidatePath?
+      const user = await getUserByEmail(email);
+      await addUserProductFromStripe(user.id, priceID);
+      revalidatePath("/library");
 
       return NextResponse.json({ result: event, status: 200 });
     }

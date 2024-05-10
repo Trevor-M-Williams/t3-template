@@ -2,7 +2,7 @@
 
 import { db } from "@/server/db";
 import { users } from "@/server/db/schema";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
 export async function getUserData() {
@@ -16,7 +16,15 @@ export async function getUserData() {
   });
 
   if (!userData) {
-    await createUser(userId);
+    const user = await currentUser();
+    const email = user?.emailAddresses[0]?.emailAddress;
+
+    if (!email) {
+      throw new Error("User not found");
+    }
+
+    await db.insert(users).values({ clerkID: userId, email });
+
     return await db.query.users.findFirst({
       where: (user) => eq(user.clerkID, userId),
     });
@@ -25,6 +33,14 @@ export async function getUserData() {
   return userData;
 }
 
-export async function createUser(clerkID: string) {
-  return await db.insert(users).values({ clerkID });
+export async function getUserByEmail(email: string) {
+  const user = await db.query.users.findFirst({
+    where: (user) => eq(user.email, email),
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
 }

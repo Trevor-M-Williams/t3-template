@@ -1,6 +1,6 @@
 import { getCategoryImages } from "@/actions/images";
-import { Button } from "@/components/ui/button";
 import { ImageGrid } from "@/components/image-grid";
+import { DownloadButton } from "@/components/download-button";
 
 export default async function CategoryPage({
   params,
@@ -9,12 +9,14 @@ export default async function CategoryPage({
 }) {
   const { category } = params;
   const images = await getCategoryImages(category);
+  const imageUrls = images.map((image) => image.downloadUrl || "");
 
   return (
     <div className="relative h-full w-full">
-      <Button className="absolute right-0 top-0 translate-y-[-3rem]">
-        Download
-      </Button>
+      <DownloadButton
+        imageUrls={imageUrls}
+        category={category.slice(0, -1).toLowerCase().replaceAll(" ", "-")}
+      />
       <ImageGrid>
         {images.map((image) => (
           <img

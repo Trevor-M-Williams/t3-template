@@ -29,6 +29,7 @@ export const images = createTable("images", {
 export const users = createTable("users", {
   id: serial("id").primaryKey(),
   clerkID: varchar("clerk_id", { length: 256 }).unique().notNull(),
+  email: varchar("email", { length: 256 }).unique().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
