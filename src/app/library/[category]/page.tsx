@@ -21,6 +21,7 @@ export default async function CategoryPage({
       <ImageGrid>
         {images.map((image) => (
           <Image
+            key={image.id.toString()}
             className="aspect-square w-full object-cover"
             src={image.url || ""}
             alt={image.id.toString()}
