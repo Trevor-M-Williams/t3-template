@@ -10,7 +10,7 @@ const inter = Inter({
 export const metadata = {
   title: "Mokkit",
   description: "Download high quality mockups!",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.png" }],
 };
 
 export default function RootLayout({

@@ -1,11 +1,5 @@
 import { Header } from "@/components/header";
 
-export const metadata = {
-  title: "Dashboard",
-  description: "Download high quality mockups!",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
-
 export default function DashboardLayout({
   children,
 }: {
