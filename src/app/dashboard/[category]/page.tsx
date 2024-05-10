@@ -28,7 +28,7 @@ export default async function CategoryPage({
       (product) => product.name === category.replaceAll("-", " "),
     );
     if (userProduct) {
-      buttonUrl = `/library/${category}`;
+      buttonUrl = `/dashboard/library/${category}`;
       buttonText = "View in Library";
     }
   } else {

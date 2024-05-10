@@ -1,6 +1,4 @@
-import { Header } from "@/components/header";
 import "@/styles/globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 
 import { Inter } from "next/font/google";
 
@@ -21,15 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`font-sans ${inter.variable}`}>
-          <div className="mx-auto w-full max-w-[100rem]">
-            <Header />
-            <main className="px-8 pb-8">{children}</main>
-          </div>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`font-sans ${inter.variable}`}>{children}</body>
+    </html>
   );
 }
