@@ -2,6 +2,7 @@ import { getWatermarkedCategoryImages } from "@/actions/images";
 import { getStripeUrl } from "@/actions/products";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { ImageGrid } from "@/components/image-grid";
 import { auth } from "@clerk/nextjs/server";
 
@@ -32,11 +33,13 @@ export default async function CategoryPage({
 
       <ImageGrid>
         {images.map((image) => (
-          <img
-            key={image.url}
+          <Image
             className="aspect-square w-full object-cover"
             src={image.url || ""}
-            alt="Image"
+            alt={image.id.toString()}
+            height={320}
+            width={320}
+            draggable={false}
           />
         ))}
       </ImageGrid>

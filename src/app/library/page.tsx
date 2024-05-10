@@ -1,11 +1,10 @@
 // import { addProducts, uploadImages } from "@/actions/seed";
-import { addUserProduct, getUserProducts } from "@/actions/products";
+import { getUserProducts } from "@/actions/products";
 import { getUserData } from "@/actions/users";
 import { H3 } from "@/components/headings";
 import { ImageGrid } from "@/components/image-grid";
-import { Button } from "@/components/ui/button";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import Image from "next/image";
 
 // function AdminButtons() {
 //   return (
@@ -52,15 +51,18 @@ export default async function LibraryPage() {
         {products.map((product) => (
           <Link
             key={product.id}
-            href={`/library/${product.name}`}
-            className="flex flex-col gap-2"
+            href={`/library/${product.name.replaceAll(" ", "-")}` || ""}
+            className="relative flex w-full flex-col gap-2"
           >
-            <img
+            <Image
               className="aspect-square w-full object-cover"
               src={product.imageUrl || ""}
-              alt={"Image"}
+              alt={product.name}
+              height={320}
+              width={320}
+              draggable={false}
             />
-            <H3>{product.name}</H3>
+            <H3>{product.name || ""}</H3>
           </Link>
         ))}
       </ImageGrid>

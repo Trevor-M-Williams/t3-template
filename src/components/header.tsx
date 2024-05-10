@@ -12,7 +12,13 @@ export function Header() {
     <header className="px-8 py-4">
       <div className="flex justify-between">
         <Link href="/" className="text-2xl font-bold">
-          <Image src="/mokkit-logo.png" alt="Logo" width={150} height={100} />
+          <Image
+            src="/mokkit-logo.png"
+            alt="Logo"
+            width={150}
+            height={100}
+            draggable={false}
+          />
         </Link>
         <SignedOut>
           <Button asChild size={"sm"}>

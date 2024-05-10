@@ -1,6 +1,7 @@
 import { getCategoryImages } from "@/actions/images";
 import { ImageGrid } from "@/components/image-grid";
 import { DownloadButton } from "@/components/download-button";
+import Image from "next/image";
 
 export default async function CategoryPage({
   params,
@@ -19,11 +20,13 @@ export default async function CategoryPage({
       />
       <ImageGrid>
         {images.map((image) => (
-          <img
-            key={image.url}
+          <Image
             className="aspect-square w-full object-cover"
             src={image.url || ""}
-            alt="Image"
+            alt={image.id.toString()}
+            height={320}
+            width={320}
+            draggable={false}
           />
         ))}
       </ImageGrid>
