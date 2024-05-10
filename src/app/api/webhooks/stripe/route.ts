@@ -1,9 +1,10 @@
-import { addUserProductFromStripe } from "@/actions/products";
-import { getUserByEmail } from "@/actions/users";
 import Cors from "micro-cors";
-import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+
+import { db } from "@/server/db";
+import { userProducts } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
 
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE);
 
@@ -46,8 +47,7 @@ export async function POST(req: Request) {
       }
 
       const user = await getUserByEmail(email);
-      await addUserProductFromStripe(user.id, priceID);
-      revalidatePath("/library");
+      await addUserProduct(user.id, priceID);
 
       return NextResponse.json({ result: event, status: 200 });
     }
@@ -60,4 +60,28 @@ export async function POST(req: Request) {
       status: 500,
     });
   }
+}
+
+async function getUserByEmail(email: string) {
+  const user = await db.query.users.findFirst({
+    where: (user) => eq(user.email, email),
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+}
+
+async function addUserProduct(userID: number, priceID: string) {
+  const product = await db.query.products.findFirst({
+    where: (product) => eq(product.stripeID, priceID),
+  });
+
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  await db.insert(userProducts).values({ userID, productID: product.id });
 }

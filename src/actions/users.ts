@@ -32,15 +32,3 @@ export async function getUserData() {
 
   return userData;
 }
-
-export async function getUserByEmail(email: string) {
-  const user = await db.query.users.findFirst({
-    where: (user) => eq(user.email, email),
-  });
-
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return user;
-}

@@ -31,21 +31,6 @@ export async function addUserProduct(stripeID: string) {
     .values({ userID: userData.id, productID: product.id });
 }
 
-export async function addUserProductFromStripe(
-  userID: number,
-  stripeID: string,
-) {
-  const product = await db.query.products.findFirst({
-    where: (product) => eq(product.stripeID, stripeID),
-  });
-
-  if (!product) {
-    throw new Error("Product not found");
-  }
-
-  await db.insert(userProducts).values({ userID, productID: product.id });
-}
-
 export async function getAllProducts() {
   const res = await db.query.products.findMany();
 
